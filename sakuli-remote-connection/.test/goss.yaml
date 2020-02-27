@@ -1,0 +1,73 @@
+file:
+  /dockerstartup/vnc_startup.sh:
+    exists: true
+    mode: "0777"
+    owner: root
+    group: root
+    filetype: file
+    contains: []
+  /dockerstartup/startup.sh:
+    exists: true
+    mode: "0777"
+    owner: root
+    group: root
+    filetype: file
+    contains: []
+  /dockerstartup/sakuli_startup.sh:
+    exists: true
+    mode: "0777"
+    owner: root
+    group: root
+    filetype: file
+    contains: []
+  /headless/wm_startup.sh:
+    exists: true
+    mode: "0777"
+    owner: root
+    group: root
+    filetype: file
+    contains: []
+package:
+  firefox:
+    installed: true
+  firefox-geckodriver:
+    installed: true
+  chromium-browser:
+    installed: true
+  chromium-chromedriver:
+    installed: true
+  build-essential:
+    installed: true
+  wget:
+    installed: true
+  locales:
+    installed: true
+  libxtst-dev:
+    installed: true
+  gnome-calculator:
+    installed: true
+  xfce4-screenshooter:
+    installed: true
+  libnss3-tools:
+    installed: true
+  remmina:
+    installed: true
+port:
+  tcp:5901:
+    listening: true
+    ip:
+      - 0.0.0.0
+  tcp:6901:
+    listening: true
+    ip:
+      - 0.0.0.0
+process:
+  Xvnc:
+    running: true
+http:
+  http://localhost:6901/?password=vncpassword:
+    status: 200
+    allow-insecure: false
+    no-follow-redirects: false
+    timeout: 5000
+    body: []
