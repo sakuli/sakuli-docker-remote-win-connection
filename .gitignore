@@ -1,2 +1,12 @@
 .idea/
 *.iml
+
+target
+.idea
+*.iml
+*.log
+env
+**/node_modules
+**/dist
+src/common/env
+.DS_Store
