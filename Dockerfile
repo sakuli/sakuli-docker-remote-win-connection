@@ -1,4 +1,6 @@
-FROM taconsol/sakuli:latest
+ARG BASE_IMAGE=taconsol/sakuli
+ARG BASE_IMAGE_VERSION=2.3.0
+FROM ${BASE_IMAGE}:${BASE_IMAGE_VERSION}
 
 ### Environment config
 ENV IMG=taconsol/sakuli-remote-connection
