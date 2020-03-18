@@ -8,10 +8,11 @@ cp -rf ./license-validator/node_modules ./env/node_modules
 
 docker build \
 --no-cache \
--t taconsol/sakuli-remote-connection \
-.
+-t taconsol/sakuli-remote-connection:latest \
+-f Dockerfile . \
+--build-arg=BASE_IMAGE=taconsol/sakuli \
+--build-arg=BASE_IMAGE_VERSION=latest
 
 cd ./.test/
 sh test.sh latest
 cd -
-rm -rf ./src
