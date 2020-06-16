@@ -32,4 +32,4 @@ jobs:
       - name: Login to Dockerhub
         run: docker login -u ${{ secrets.DOCKER_USER }} -p "${{ secrets.DOCKER_PASSWORD }}"
       - name: Publish image
-        run: docker push taconsol/sakuli:latest
+        run: docker push taconsol/sakuli-s2i-remote-connection:latest
