@@ -32,4 +32,4 @@ jobs:
         env:
           SAKULI_LICENSE_KEY: ${{ secrets.SAKULI_LICENSE_KEY }}
       - name: Publish image
-        run: docker push taconsol/sakuli-s2i-remote-connection:latest
+        run: docker push taconsol/sakuli-remote-connection:latest
