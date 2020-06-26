@@ -1,0 +1,37 @@
+name: build-release
+
+on:
+  push:
+    branches: [sakuli/**]
+  repository_dispatch:
+    types: [build-release]
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v1.4.2
+        with:
+          node-version: '12'
+      - name: Install goss and dgoss
+        run: |
+          curl -L https://github.com/aelsabbahy/goss/releases/latest/download/goss-linux-amd64 -o $HOME/goss
+          chmod +rx $HOME/goss
+          curl -L https://github.com/aelsabbahy/goss/releases/latest/download/dgoss -o $HOME/dgoss
+          chmod +rx $HOME/dgoss
+      - name: Get latest Sakuli version number
+        run: echo "::set-env name=SAKULI_VERSION::$(node -pe 'JSON.parse(process.argv[1])[0].name' "$(curl -s https://api.github.com/repos/sakuli/sakuli/tags)" | cut -c 2-6)"
+      - name: Login to Dockerhub
+        run: docker login -u ${{ secrets.DOCKER_USER }} -p "${{ secrets.DOCKER_PASSWORD }}"
+      - name: Build and test image
+        run: |
+          export PATH=$PATH:$HOME
+          ./build-release.sh ${{ secrets.BASE_IMAGE }} ${SAKULI_VERSION}
+        env:
+          SAKULI_LICENSE_KEY: ${{ secrets.SAKULI_LICENSE_KEY }}
+#      - name: Publish image
+#        run: docker push taconsol/sakuli-remote-connection:${SAKULI_VERSION}
