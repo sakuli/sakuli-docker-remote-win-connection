@@ -1,0 +1,35 @@
+name: build
+
+on:
+  push:
+    branches-ignore:
+      - 'master'
+      - 'develop'
+      - 'release/**'
+  pull_request:
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v1.4.2
+        with:
+          node-version: '12'
+      - name: Install goss and dgoss
+        run: |
+          curl -L https://github.com/aelsabbahy/goss/releases/latest/download/goss-linux-amd64 -o $HOME/goss
+          chmod +rx $HOME/goss
+          curl -L https://github.com/aelsabbahy/goss/releases/latest/download/dgoss -o $HOME/dgoss
+          chmod +rx $HOME/dgoss
+      - name: Login to Dockerhub
+        run: docker login -u ${{ secrets.DOCKER_USER }} -p "${{ secrets.DOCKER_PASSWORD }}"
+      - name: Build and test image
+        run: |
+          export PATH=$PATH:$HOME
+          ./build-latest.sh ${{ secrets.BASE_IMAGE }} ${{ secrets.BASE_IMAGE_VERSION }}
+        env:
+          SAKULI_LICENSE_KEY: ${{ secrets.SAKULI_LICENSE_KEY }}
