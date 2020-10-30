@@ -24,9 +24,10 @@ jobs:
           chmod +rx $HOME/dgoss
       - name: Login to Dockerhub
         run: docker login -u ${{ secrets.DOCKER_USER }} -p "${{ secrets.DOCKER_PASSWORD }}"
+      - name: Set SAKULI_VERSION according to tag
+        run: echo "SAKULI_VERSION=${GITHUB_REF#refs/*/v}" >> $GITHUB_ENV
       - name: Build and test image
         run: |
-          echo "SAKULI_VERSION=${GITHUB_REF#refs/*/v}" >> $GITHUB_ENV
           export PATH=$PATH:$HOME
           ./build-release.sh ${{ secrets.BASE_IMAGE }} ${SAKULI_VERSION}
         env:
