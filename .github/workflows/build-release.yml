@@ -22,14 +22,14 @@ jobs:
           chmod +rx $HOME/goss
           curl -L https://github.com/aelsabbahy/goss/releases/latest/download/dgoss -o $HOME/dgoss
           chmod +rx $HOME/dgoss
-      - name: Get latest Sakuli version number
-        run: echo "::set-env name=SAKULI_VERSION::${GITHUB_REF#refs/*/v}"
       - name: Login to Dockerhub
         run: docker login -u ${{ secrets.DOCKER_USER }} -p "${{ secrets.DOCKER_PASSWORD }}"
+      - name: Set SAKULI_VERSION according to tag
+        run: echo "SAKULI_VERSION=${GITHUB_REF#refs/*/v}" >> $GITHUB_ENV
+      - name: Add HOME directory to PATH
+        run: echo "$HOME" >> $GITHUB_PATH
       - name: Build and test image
-        run: |
-          export PATH=$PATH:$HOME
-          ./build-release.sh ${{ secrets.BASE_IMAGE }} ${SAKULI_VERSION}
+        run: ./build-release.sh ${{ secrets.BASE_IMAGE }} ${SAKULI_VERSION}
         env:
           SAKULI_LICENSE_KEY: ${{ secrets.SAKULI_LICENSE_KEY }}
       - name: Publish image
