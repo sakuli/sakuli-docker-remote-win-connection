@@ -3,7 +3,7 @@
 set -ex
 
 BASE_IMAGE=${1:-taconsol/sakuli}
-BASE_IMAGE_VERSION=${2:-2.5.0}
+BASE_IMAGE_VERSION=${2:-2.5.1}
 
 echo "Base image: ${BASE_IMAGE}"
 echo "Base image version: ${BASE_IMAGE_VERSION}"
