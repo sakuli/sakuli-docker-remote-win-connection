@@ -27,6 +27,13 @@ file:
     group: root
     filetype: file
     contains: []
+  /opt/Citrix/ICAClient:
+    exists: true
+    mode: "0777"
+    owner: root
+    group: root
+    filetype: directory
+    contains: []
 package:
   firefox:
     installed: true
