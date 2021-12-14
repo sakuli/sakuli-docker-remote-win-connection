@@ -30,5 +30,3 @@ jobs:
         run: echo "$HOME" >> $GITHUB_PATH
       - name: Build and test image
         run: ./build-latest.sh ${{ secrets.BASE_IMAGE }} ${{ secrets.BASE_IMAGE_VERSION }}
-        env:
-          SAKULI_LICENSE_KEY: ${{ secrets.SAKULI_LICENSE_KEY }}
