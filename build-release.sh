@@ -8,11 +8,8 @@ BASE_IMAGE_VERSION=${2:-2.5.1}
 echo "Base image: ${BASE_IMAGE}"
 echo "Base image version: ${BASE_IMAGE_VERSION}"
 
-npm --prefix ./license-validator ci
 rm -rf ./env
 mkdir -p ./env
-cp -rf ./license-validator/dist/index.js ./env/startup.js
-cp -rf ./license-validator/node_modules ./env/node_modules
 
 docker build \
 --no-cache \
