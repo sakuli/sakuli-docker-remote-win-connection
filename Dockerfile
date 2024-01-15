@@ -8,7 +8,7 @@ ENV IMG=taconsol/sakuli-remote-connection
 USER 0
 
 RUN apt-get update && \
-    apt-get -y install remmina &&\
+    apt-get -y install remmina krb5-user sssd-krb5 &&\
     apt-get clean
 
 ### Copy env scripts for startup
