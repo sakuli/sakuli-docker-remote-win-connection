@@ -52,6 +52,10 @@ package:
     installed: true
   remmina:
     installed: true
+  krb5-user:
+    installed: true
+  sssd-krb5:
+    installed: true
 port:
   tcp:5901:
     listening: true
